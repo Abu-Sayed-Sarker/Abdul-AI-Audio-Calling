@@ -1,9 +1,6 @@
 import * as React from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { useNavigate, useParams } from "react-router-dom";
-import { useGetSingleUserQuery } from "../Api/userInfo";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../Features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function randomID(len) {
   let result = "";
@@ -26,22 +23,13 @@ export function getUrlParams(url = window.location.href) {
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const roomID = urlParams.get("deviceId");
-  const userID = urlParams.get("user");
+  const userName = urlParams.get("user");
+  const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
-  const dispatch = useDispatch();
-  dispatch(setCredentials(token));
-  const { data, refetch } = useGetSingleUserQuery(userID, { skip: !userID });
-
-  console.log("data", data);
-
-  React.useEffect(() => {
-    if (userID && !token) {
-      refetch();
-    }
-  }, [refetch, userID, token]);
 
   console.log(roomID);
-  console.log(userID);
+  console.log(userName);
+  console.log(receiver);
   console.log(token);
 
   const navigate = useNavigate();
