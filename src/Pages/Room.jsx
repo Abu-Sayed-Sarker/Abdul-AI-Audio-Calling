@@ -22,8 +22,8 @@ export function getUrlParams(url = window.location.href) {
 
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
-  const roomID = urlParams.get("deviceId");
-  const userId = urlParams.get("userId");
+  const roomID = urlParams.get("device");
+  const userId = urlParams.get("user");
   const token = urlParams.get("token");
 
   console.log(roomID);
