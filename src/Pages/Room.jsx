@@ -22,7 +22,7 @@ export function getUrlParams(url = window.location.href) {
 
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
-  const roomID = urlParams.get("device");
+  const roomID = urlParams.get("roomId");
   const userName = urlParams.get("user");
   const receiverName = urlParams.get("receiver");
   const token = urlParams.get("token");
@@ -48,7 +48,6 @@ export default function App() {
       serverSecret,
       roomID,
       receiverName,
-      randomID(5),
       userName
     );
 
