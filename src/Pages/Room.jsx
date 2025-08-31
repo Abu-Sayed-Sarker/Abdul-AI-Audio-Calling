@@ -21,7 +21,14 @@ export function getUrlParams(url = window.location.href) {
 }
 
 export default function App() {
-  const roomID = "23dfsdweglibcvosbvferfuhvbco8ervfubco8abewfyvlo";
+  const urlParams = new URLSearchParams(window.location.search);
+  const roomID = urlParams.get("deviceId");
+  const userId = urlParams.get("userId");
+  const token = urlParams.get("token");
+
+  console.log(roomID);
+  console.log(userId);
+  console.log(token);
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
@@ -75,12 +82,12 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
-        navigate("/");
+        navigate(-1);
         console.log("onLeaveRoom");
       },
       onUserLeave: () => {
         console.log("onUserLeave");
-        navigate("/");
+        navigate(-1);
       },
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
