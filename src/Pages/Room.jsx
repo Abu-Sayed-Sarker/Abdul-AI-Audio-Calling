@@ -1,6 +1,9 @@
 import * as React from "react";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useNavigate, useParams } from "react-router-dom";
+import { useGetSingleUserQuery } from "../Api/userInfo";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../Features/authSlice";
 
 function randomID(len) {
   let result = "";
@@ -22,14 +25,17 @@ export function getUrlParams(url = window.location.href) {
 
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
-  const roomID = urlParams.get("device");
-  const userName = urlParams.get("user");
-  const receiverName = urlParams.get("receiver");
+  const roomID = urlParams.get("deviceId");
+  const userID = urlParams.get("user");
   const token = urlParams.get("token");
+  const dispatch = useDispatch();
+  dispatch(setCredentials(token));
+  const { data } = useGetSingleUserQuery(userID, { skip: !userID || !token });
+
+  console.log("data", data);
 
   console.log(roomID);
-  console.log(userName);
-  console.log(receiverName);
+  console.log(userID);
   console.log(token);
 
   const navigate = useNavigate();
@@ -48,8 +54,8 @@ export default function App() {
       appID,
       serverSecret,
       roomID,
-      receiverName,
-      userName
+      randomID(5),
+      randomID(5)
     );
 
     // Create instance object from Kit Token.
@@ -78,6 +84,7 @@ export default function App() {
       showMyCameraToggleButton: false,
       showChat: false,
       showRoomDetailsButton: false,
+      showUserName: true,
       showTextChat: false,
       maxUsers: 2,
       showRoomTimer: true,
