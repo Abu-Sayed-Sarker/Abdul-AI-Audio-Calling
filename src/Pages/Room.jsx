@@ -48,7 +48,7 @@ export default function App() {
       appID,
       serverSecret,
       roomID,
-      receiver,
+      randomID(5),
       userName
     );
 
