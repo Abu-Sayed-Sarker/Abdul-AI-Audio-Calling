@@ -33,7 +33,7 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  if (!roomID || !userId || !token) {
+  if (!roomID || !userName || !token) {
     return navigate(-1);
   }
 
