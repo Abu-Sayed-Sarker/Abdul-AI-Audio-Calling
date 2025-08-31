@@ -30,9 +30,14 @@ export default function App() {
   console.log(userId);
   console.log(token);
 
+  const navigate = useNavigate();
+
+  if (!roomID || !userId || !token) {
+    return navigate(-1);
+  }
+
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
-  const navigate = useNavigate();
   let myMeeting = async (element) => {
     // generate Kit Token
     const appID = 1040999479;
