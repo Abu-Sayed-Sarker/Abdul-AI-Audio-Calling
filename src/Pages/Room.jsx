@@ -34,9 +34,9 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  if (!roomID || !userName || !token) {
-    return navigate(-1);
-  }
+  // if (!roomID || !userName || !token) {
+  //   return navigate(-1);
+  // }
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
