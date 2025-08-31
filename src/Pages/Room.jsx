@@ -23,11 +23,12 @@ export function getUrlParams(url = window.location.href) {
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const roomID = urlParams.get("device");
-  const userId = urlParams.get("user");
+  const userName = urlParams.get("user");
+  const receiverName = urlParams.get("receiver");
   const token = urlParams.get("token");
 
   console.log(roomID);
-  console.log(userId);
+  console.log(userName);
   console.log(token);
 
   const navigate = useNavigate();
@@ -46,8 +47,8 @@ export default function App() {
       appID,
       serverSecret,
       roomID,
-      randomID(5),
-      randomID(5)
+      receiverName,
+      userName
     );
 
     // Create instance object from Kit Token.
