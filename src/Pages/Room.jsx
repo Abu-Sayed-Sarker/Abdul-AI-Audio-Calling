@@ -30,9 +30,15 @@ export default function App() {
   const token = urlParams.get("token");
   const dispatch = useDispatch();
   dispatch(setCredentials(token));
-  const { data } = useGetSingleUserQuery(userID, { skip: !userID || !token });
+  const { data, refetch } = useGetSingleUserQuery(userID, { skip: !userID });
 
   console.log("data", data);
+
+  React.useEffect(() => {
+    if (userID && !token) {
+      refetch();
+    }
+  }, [refetch, userID, token]);
 
   console.log(roomID);
   console.log(userID);
