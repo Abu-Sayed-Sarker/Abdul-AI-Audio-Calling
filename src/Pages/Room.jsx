@@ -48,8 +48,8 @@ export default function App() {
       appID,
       serverSecret,
       roomID,
-      randomID(5),
-      randomID(5)
+      receiver,
+      userName
     );
 
     // Create instance object from Kit Token.
