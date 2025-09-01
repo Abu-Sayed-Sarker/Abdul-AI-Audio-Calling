@@ -49,7 +49,7 @@ export default function App() {
       serverSecret,
       roomID,
       userName,
-      userName
+      receiver
     );
 
     // Create instance object from Kit Token.
