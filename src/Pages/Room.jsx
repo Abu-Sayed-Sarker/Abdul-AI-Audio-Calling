@@ -49,11 +49,7 @@ export default function App() {
       serverSecret,
       roomID,
       randomID(5),
-      randomID(5),
-      {
-        userName: userName,
-        userRole: receiver,
-      }
+      randomID(5)
     );
 
     // Create instance object from Kit Token.
@@ -74,6 +70,7 @@ export default function App() {
             roomID,
         },
       ],
+      onUserAvatarSetter: () => {},
       turnOnCameraWhenJoining: false,
       showScreenSharingButton: false,
       showAudioVideoSettingsButton: false,
