@@ -79,7 +79,7 @@ export default function App() {
       showAudioVideoSettingsButton: true,
       showUserList: true,
       showMoreButton: false,
-      showMyCameraToggleButton: false,
+      showMyCameraToggleButton: true,
       showChat: false,
       showRoomDetailsButton: false,
       showUserName: true,
