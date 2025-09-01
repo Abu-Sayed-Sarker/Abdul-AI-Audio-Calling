@@ -37,6 +37,9 @@ export default function App() {
   if (!roomID || !userName || !token) {
     return navigate(-1);
   }
+  if (!token) {
+    return alert("Token not found");
+  }
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
