@@ -47,9 +47,9 @@ export default function App() {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
+      null,
       roomID,
-      randomID(5),
-      randomID(5)
+      userName
     );
 
     // Create instance object from Kit Token.
