@@ -47,8 +47,8 @@ export default function App() {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
-      null,
       roomID,
+      userName,
       userName
     );
 
