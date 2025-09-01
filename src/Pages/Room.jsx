@@ -38,7 +38,7 @@ export default function App() {
     return navigate(-1);
   }
   if (!token) {
-    return alert("Token not found");
+    return alert("You are not allowed to access this Call");
   }
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
