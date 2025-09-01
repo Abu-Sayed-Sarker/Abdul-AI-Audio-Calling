@@ -74,7 +74,7 @@ export default function App() {
       turnOnCameraWhenJoining: false,
       showScreenSharingButton: false,
       showAudioVideoSettingsButton: false,
-      showUserList: false,
+      showUserList: true,
       showMoreButton: false,
       showMyCameraToggleButton: false,
       showChat: false,
