@@ -27,11 +27,6 @@ export default function App() {
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
 
-  console.log(roomID);
-  console.log(userName);
-  console.log(receiver);
-  console.log(token);
-
   const navigate = useNavigate();
 
   if (!roomID || !userName || !token) {
@@ -74,12 +69,12 @@ export default function App() {
         },
       ],
       onUserAvatarSetter: () => {},
-      turnOnCameraWhenJoining: true,
+      turnOnCameraWhenJoining: false,
       showScreenSharingButton: false,
-      showAudioVideoSettingsButton: true,
+      showAudioVideoSettingsButton: false,
       showUserList: true,
       showMoreButton: false,
-      showMyCameraToggleButton: true,
+      showMyCameraToggleButton: false,
       showChat: false,
       showRoomDetailsButton: false,
       showUserName: true,
