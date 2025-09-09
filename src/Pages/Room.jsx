@@ -27,21 +27,13 @@ export default function App() {
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   if (!roomID || !userName || !token) {
-    return goBackWithMessage("You are not allowed to access this Call");
+    return navigate(-1);
   }
   if (!token) {
     return alert("You are not allowed to access this Call");
-  }
-
-  // Step 1: Adding message to history state when navigating
-  function goBackWithMessage(message) {
-    // Push a new state to the history stack
-    window.history.pushState({ message: message }, "", window.location.href);
-    // Go back one step
-    window.history.back();
   }
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
@@ -97,12 +89,12 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
-        goBackWithMessage("Call ended");
+        navigate(-1);
         console.log("onLeaveRoom");
       },
       onUserLeave: () => {
         console.log("onUserLeave");
-        goBackWithMessage("Call ended");
+        navigate(-1);
       },
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
