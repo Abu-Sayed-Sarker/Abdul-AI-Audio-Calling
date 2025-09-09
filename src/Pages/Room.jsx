@@ -50,14 +50,13 @@ export default function App() {
     const newSocket = new WebSocket(
       `wss://abc.winaclaim.com/ws/call/${roomID}/?token=${token}`
     );
+    setSocket(newSocket);
     newSocket.onopen = () => {
       console.log("socket open");
     };
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("response data", data);
       if (data.action === "end_call") {
-        navigate(-1);
       }
       setResponse(data);
     };
@@ -67,7 +66,6 @@ export default function App() {
     newSocket.onclose = () => {
       console.log("socket close");
     };
-    setSocket(newSocket);
   }, []);
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
@@ -123,6 +121,7 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
+        navigate(-1, "?roomID=" + roomID);
         const data = {
           action: "end_call",
           call_id: response?.call_id,
