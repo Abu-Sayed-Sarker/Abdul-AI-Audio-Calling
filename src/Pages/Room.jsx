@@ -27,7 +27,7 @@ export default function App() {
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
   const [socket, setSocket] = React.useState(null);
-  const [response, setResponse] = React.useState(null);
+  const [response, setResponse] = React.useState({});
 
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ export default function App() {
     };
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log(data);
+      console.log("response data", data);
       setResponse(data);
     };
     newSocket.onerror = () => {
