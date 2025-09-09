@@ -65,9 +65,6 @@ export default function App() {
       console.log("socket close");
     };
     setSocket(newSocket);
-    return () => {
-      newSocket.close();
-    };
   }, []);
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
