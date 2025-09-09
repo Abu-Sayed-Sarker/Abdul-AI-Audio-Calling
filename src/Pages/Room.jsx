@@ -26,16 +26,8 @@ export default function App() {
   const userName = urlParams.get("user");
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
-  const [socket, setSocket] = React.useState(null);
-  const [response, setResponse] = React.useState({});
 
   const navigate = useNavigate();
-
-  console.log("response", response);
-  console.log("roomID", roomID);
-  console.log("userName", userName);
-  console.log("receiver", receiver);
-  console.log("token", token);
 
   if (!roomID || !userName || !token) {
     return navigate(-1);
@@ -44,29 +36,13 @@ export default function App() {
     return alert("You are not allowed to access this Call");
   }
 
-  //////////////////////////////// web socket setup ////////////////////////////////////////////////////////////
-
-  React.useEffect(() => {
-    const newSocket = new WebSocket(
-      `wss://abc.winaclaim.com/ws/call/${roomID}/?token=${token}`
-    );
-    setSocket(newSocket);
-    newSocket.onopen = () => {
-      console.log("socket open");
-    };
-    newSocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.action === "end_call") {
-      }
-      setResponse(data);
-    };
-    newSocket.onerror = () => {
-      console.log("socket error");
-    };
-    newSocket.onclose = () => {
-      console.log("socket close");
-    };
-  }, []);
+  // Step 1: Adding message to history state when navigating
+  function goBackWithMessage(message) {
+    // Push a new state to the history stack
+    window.history.pushState({ message: message }, "", window.location.href);
+    // Go back one step
+    window.history.back();
+  }
 
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
@@ -121,23 +97,12 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
-        navigate(-1, "?roomID=" + roomID);
-        const data = {
-          action: "end_call",
-          call_id: response?.call_id,
-          device_id: response?.device_id,
-        };
-        socket.send(JSON.stringify(data));
+        goBackWithMessage("Call ended");
         console.log("onLeaveRoom");
       },
       onUserLeave: () => {
         console.log("onUserLeave");
-        const data = {
-          action: "end_call",
-          call_id: response?.call_id,
-          device_id: response?.device_id,
-        };
-        socket.send(JSON.stringify(data));
+        goBackWithMessage("Call ended");
       },
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
