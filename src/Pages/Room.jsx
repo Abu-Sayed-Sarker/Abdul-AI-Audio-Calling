@@ -56,6 +56,9 @@ export default function App() {
     newSocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("response data", data);
+      if (data.action === "end_call") {
+        navigate(-1);
+      }
       setResponse(data);
     };
     newSocket.onerror = () => {
@@ -120,7 +123,6 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
-        navigate(-1);
         const data = {
           action: "end_call",
           call_id: response?.call_id,
@@ -130,7 +132,6 @@ export default function App() {
         console.log("onLeaveRoom");
       },
       onUserLeave: () => {
-        navigate(-1);
         console.log("onUserLeave");
         const data = {
           action: "end_call",
