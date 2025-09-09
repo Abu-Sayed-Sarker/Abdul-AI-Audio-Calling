@@ -26,6 +26,8 @@ export default function App() {
   const userName = urlParams.get("user");
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
+  const [socket, setSocket] = React.useState(null);
+  const [response, setResponse] = React.useState(null);
 
   const navigate = useNavigate();
 
@@ -36,12 +38,38 @@ export default function App() {
     return alert("You are not allowed to access this Call");
   }
 
+  //////////////////////////////// web socket setup ////////////////////////////////////////////////////////////
+
+  React.useEffect(() => {
+    const newSocket = new WebSocket(
+      `wss://abc.winaclaim.com/ws/call/${roomID}/?token=${token}`
+    );
+    newSocket.onopen = () => {
+      console.log("socket open");
+    };
+    newSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log(data);
+      setResponse(data);
+    };
+    newSocket.onerror = () => {
+      console.log("socket error");
+    };
+    newSocket.onclose = () => {
+      console.log("socket close");
+    };
+    setSocket(newSocket);
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
   ////////////////////////////////////////// audio call setup //////////////////////////////////////////////////////////
 
   let myMeeting = async (element) => {
     // generate Kit Token
-    const appID = 1040999479;
-    const serverSecret = "93dd0316c1fa2da808800ce9efbcfd3d";
+    const appID = 1130639396;
+    const serverSecret = "ba7955818db26946558996cc10d4e749";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
@@ -84,16 +112,44 @@ export default function App() {
       showUserName: false,
       onUserJoin: () => {
         console.log("user joined");
+        if (response) {
+          const data = {
+            action: "end_call",
+            call_id: response?.call_id,
+            device_id: response?.device_id,
+          };
+          socket.send(JSON.stringify(data));
+        }
       },
       onJoinRoom: () => {
         console.log("onJoinRoom");
+        if (response) {
+          const data = {
+            action: "end_call",
+            call_id: response?.call_id,
+            device_id: response?.device_id,
+          };
+          socket.send(JSON.stringify(data));
+        }
       },
       onLeaveRoom: () => {
-        navigate(-1);
+        const data = {
+          action: "end_call",
+          call_id: response?.call_id,
+          device_id: response?.device_id,
+        };
+        socket.send(JSON.stringify(data));
         console.log("onLeaveRoom");
+        navigate(-1);
       },
       onUserLeave: () => {
         console.log("onUserLeave");
+        const data = {
+          action: "end_call",
+          call_id: response?.call_id,
+          device_id: response?.device_id,
+        };
+        socket.send(JSON.stringify(data));
         navigate(-1);
       },
       scenario: {
