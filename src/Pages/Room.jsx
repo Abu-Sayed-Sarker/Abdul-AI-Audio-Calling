@@ -112,25 +112,9 @@ export default function App() {
       showUserName: false,
       onUserJoin: () => {
         console.log("user joined");
-        if (response) {
-          const data = {
-            action: "end_call",
-            call_id: response?.call_id,
-            device_id: response?.device_id,
-          };
-          socket.send(JSON.stringify(data));
-        }
       },
       onJoinRoom: () => {
         console.log("onJoinRoom");
-        if (response) {
-          const data = {
-            action: "end_call",
-            call_id: response?.call_id,
-            device_id: response?.device_id,
-          };
-          socket.send(JSON.stringify(data));
-        }
       },
       onLeaveRoom: () => {
         const data = {
