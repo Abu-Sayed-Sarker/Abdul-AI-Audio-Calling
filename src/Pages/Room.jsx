@@ -31,6 +31,12 @@ export default function App() {
 
   const navigate = useNavigate();
 
+  console.log("response", response);
+  console.log("roomID", roomID);
+  console.log("userName", userName);
+  console.log("receiver", receiver);
+  console.log("token", token);
+
   if (!roomID || !userName || !token) {
     return navigate(-1);
   }
