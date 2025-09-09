@@ -27,10 +27,10 @@ export default function App() {
   const receiver = urlParams.get("receiver");
   const token = urlParams.get("token");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (!roomID || !userName || !token) {
-    return navigate(-1);
+    return goBackWithMessage("You are not allowed to access this Call");
   }
   if (!token) {
     return alert("You are not allowed to access this Call");
