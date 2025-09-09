@@ -120,6 +120,7 @@ export default function App() {
         console.log("onJoinRoom");
       },
       onLeaveRoom: () => {
+        navigate(-1);
         const data = {
           action: "end_call",
           call_id: response?.call_id,
@@ -127,9 +128,9 @@ export default function App() {
         };
         socket.send(JSON.stringify(data));
         console.log("onLeaveRoom");
-        navigate(-1);
       },
       onUserLeave: () => {
+        navigate(-1);
         console.log("onUserLeave");
         const data = {
           action: "end_call",
@@ -137,7 +138,6 @@ export default function App() {
           device_id: response?.device_id,
         };
         socket.send(JSON.stringify(data));
-        navigate(-1);
       },
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
